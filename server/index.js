@@ -20,7 +20,7 @@ app.use(express.urlencoded({ extended: false }));
 
 
 app.use(helmet());
-app.use(rateLimit({
+const apiLimiter = rateLimit({
 	windowMs: 5 * 60 * 1000,
 	max: process.env.MAX_REQUESTS,
 	standardHeaders: true,
@@ -28,12 +28,12 @@ app.use(rateLimit({
     message: async (req,res, next)=>{
         createHttpError.TooManyRequests();
     }
-}));
+});
 
 app.get("/", (req, res, next) => {
     res.send({ status: true, message: "Server up and  running" });
 });
-app.use("/", volunteer);
+app.use("/", apiLimiter, volunteer);
 
 app.use(async (req, res, next) => {
     next(createHttpError.NotFound());
