@@ -2,6 +2,8 @@ import request from "request";
 import volunteer from "../models/volunteer.js";
 import { validationResult } from "express-validator";
 import createHttpError from "http-errors";
+import { mailSender } from "../services/mailSender.js";
+import volunteerMailTemplate from "../mailTemplate/volunteerMailTemplate.js";
 
 export const registerVolunteer = async (req, res, next) => {
     try {
@@ -40,6 +42,7 @@ export const registerVolunteer = async (req, res, next) => {
                 user = await volunteer.create({
                     email, auid, name, college, department, pref1, pref2, year, dob, whatsapp, call, exp, reason, gender
                 });
+                await mailSender(user, volunteerMailTemplate(user));
                 res.send({ success: true, message: "Registration Successfull, Check Mail" });
             } catch (error) {
                 next(error);

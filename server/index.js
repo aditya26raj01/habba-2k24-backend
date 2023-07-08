@@ -22,7 +22,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(helmet());
 const apiLimiter = rateLimit({
 	windowMs: 5 * 60 * 1000,
-	max: process.env.MAX_REQUESTS,
+	max: 40 || process.env.MAX_REQUESTS,
 	standardHeaders: true,
 	legacyHeaders: false,
     message: async (req,res, next)=>{

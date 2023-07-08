@@ -7,10 +7,10 @@ const nanoid = customAlphabet('1234567890', 4);
 
 const volunteer = new Schema({
     id: {
-        type: String,
+        type: Number,
         required: true,
         unique: true,
-        default: () => nanoid(),
+        default: () => Number(nanoid()),
         index: { unique: true },
     },    
     email:{
