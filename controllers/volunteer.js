@@ -49,6 +49,7 @@ export const registerVolunteer = async (req, res, next) => {
             }
         });
     } catch (error) {
+        await volunteer.findOneAndDelete({ email });
         next(error);
     }
 };

@@ -225,7 +225,7 @@ const volunteerMailTemplate = (user) => {
                     </div>
                 </div>
                 <div class="card-bottom">
-                    <div>Acharya Habba 2023</div>
+                    <div>Acharya Habba 2024</div>
                     <div>Acharya Institutes, Bengaluru</div>
                 </div>
     
