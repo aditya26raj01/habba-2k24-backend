@@ -45,11 +45,12 @@ export const registerVolunteer = async (req, res, next) => {
                 await mailSender(user, volunteerMailTemplate(user));
                 res.send({ success: true, message: "Registration Successfull, Check Mail" });
             } catch (error) {
+                await volunteer.findOneAndDelete({ email });
                 next(error);
             }
         });
     } catch (error) {
-        await volunteer.findOneAndDelete({ email });
+        await volunteer.findOneAndDelete({ email: req.body.email });
         next(error);
     }
 };
